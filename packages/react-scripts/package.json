@@ -1,8 +1,8 @@
 {
   "name": "pj-react-scripts",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Configuration and scripts for Create React App by Pawel Jedrzejczyk",
-  "repository": "paweljedrzejczyk/create-react-app",
+  "repository": "https://github.com/paweljedrzejczyk/create-react-app",
   "license": "BSD-3-Clause",
   "engines": {
     "node": ">=6"
