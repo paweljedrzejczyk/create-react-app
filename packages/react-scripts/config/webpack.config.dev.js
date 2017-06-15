@@ -135,11 +135,8 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               // @remove-on-eject-begin
-              baseConfig: {
-                extends: [require.resolve('eslint-config-react-app')],
-              },
               ignore: false,
-              useEslintrc: false,
+              configFile: require.resolve(paths.appPath + '/.eslintrc.js'),
               // @remove-on-eject-end
             },
             loader: require.resolve('eslint-loader'),
@@ -160,7 +157,7 @@ module.exports = {
         exclude: [
           /\.html$/,
           /\.(js|jsx)$/,
-          /\.css$/,
+          /\.(css|scss)$/,
           /\.json$/,
           /\.bmp$/,
           /\.gif$/,
@@ -190,8 +187,7 @@ module.exports = {
         loader: require.resolve('babel-loader'),
         options: {
           // @remove-on-eject-begin
-          babelrc: false,
-          presets: [require.resolve('babel-preset-react-app')],
+          extends: require.resolve(paths.appPath + '/.babelrc'),
           // @remove-on-eject-end
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -205,14 +201,19 @@ module.exports = {
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
       {
-        test: /\.css$/,
+        test: /\.(css|scss)$/,
         use: [
           require.resolve('style-loader'),
           {
             loader: require.resolve('css-loader'),
             options: {
-              importLoaders: 1,
+              importLoaders: 2,
+              modules: process.env.CSS_MODULES ? process.env.CSS_MODULES == 'true' : true,
+              localIdentName: '[path][name]__[local]--[hash:base64:5]',
             },
+          },
+          {
+            loader: require.resolve('sass-loader'),
           },
           {
             loader: require.resolve('postcss-loader'),

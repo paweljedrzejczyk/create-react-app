@@ -135,11 +135,8 @@ module.exports = {
               // @remove-on-eject-begin
               // TODO: consider separate config for production,
               // e.g. to enable no-console and no-debugger only in production.
-              baseConfig: {
-                extends: [require.resolve('eslint-config-react-app')],
-              },
               ignore: false,
-              useEslintrc: false,
+              configFile: require.resolve(paths.appPath + '/.eslintrc.js'),
               // @remove-on-eject-end
             },
             loader: require.resolve('eslint-loader'),
@@ -159,7 +156,7 @@ module.exports = {
         exclude: [
           /\.html$/,
           /\.(js|jsx)$/,
-          /\.css$/,
+          /\.(css|scss)$/,
           /\.json$/,
           /\.bmp$/,
           /\.gif$/,
@@ -188,8 +185,7 @@ module.exports = {
         loader: require.resolve('babel-loader'),
         // @remove-on-eject-begin
         options: {
-          babelrc: false,
-          presets: [require.resolve('babel-preset-react-app')],
+          extends: require.resolve(paths.appPath + '/.babelrc'),
         },
         // @remove-on-eject-end
       },
@@ -206,7 +202,7 @@ module.exports = {
       // use the "style" loader inside the async code so CSS from them won't be
       // in the main CSS file.
       {
-        test: /\.css$/,
+        test: /\.(css|scss)$/,
         loader: ExtractTextPlugin.extract(
           Object.assign(
             {
@@ -215,8 +211,16 @@ module.exports = {
                 {
                   loader: require.resolve('css-loader'),
                   options: {
-                    importLoaders: 1,
+                    importLoaders: 2,
                     minimize: true,
+                    sourceMap: true,
+                    modules: process.env.CSS_MODULES ? process.env.CSS_MODULES == 'true' : true,
+                    localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                  },
+                },
+                {
+                  loader: require.resolve('sass-loader'),
+                  options: {
                     sourceMap: true,
                   },
                 },
