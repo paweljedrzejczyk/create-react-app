@@ -161,6 +161,18 @@ inquirer
         return;
       }
       console.log(`  Adding ${cyan(key)} to devDependencies`);
+
+      // Put those packages as dependencies not devDependencies
+      const shouldBePutInDependencies = [
+        'react-hot-loader',
+        'normalize.css',
+      ];
+      if(shouldBePutInDependencies.includes(key)) {
+        console.log(`  Adding ${cyan(key)} to dependencies`);
+        appPackage.dependencies[key] = ownPackage.dependencies[key];
+        return;
+      }
+
       appPackage.devDependencies[key] = ownPackage.dependencies[key];
     });
     console.log();
