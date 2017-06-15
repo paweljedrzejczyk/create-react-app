@@ -184,16 +184,21 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: require.resolve('babel-loader'),
-        options: {
-          // @remove-on-eject-begin
-          extends: require.resolve(paths.appPath + '/.babelrc'),
-          // @remove-on-eject-end
-          // This is a feature of `babel-loader` for webpack (not Babel itself).
-          // It enables caching results in ./node_modules/.cache/babel-loader/
-          // directory for faster rebuilds.
-          cacheDirectory: true,
-        },
+        use: [
+          require.resolve('react-hot-loader/webpack'),
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              // @remove-on-eject-begin
+              extends: require.resolve(paths.appPath + '/.babelrc'),
+              // @remove-on-eject-end
+              // This is a feature of `babel-loader` for webpack (not Babel itself).
+              // It enables caching results in ./node_modules/.cache/babel-loader/
+              // directory for faster rebuilds.
+              cacheDirectory: true,
+            },
+          }
+        ]
       },
       // "postcss" loader applies autoprefixer to our CSS.
       // "css" loader resolves paths in CSS and adds assets as dependencies.
