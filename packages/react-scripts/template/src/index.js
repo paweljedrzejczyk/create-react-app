@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// react-hot-loader is a dependecy of this react-scripts fork
+// remove this comment after ejecting
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { AppContainer } from 'react-hot-loader';
 
 import App from 'components/App';

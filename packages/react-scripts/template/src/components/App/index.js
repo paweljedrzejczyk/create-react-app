@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+// normalize.css is a dependecy of this react-scripts fork
+// remove this comment after ejecting
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'normalize.css';
 import logo from './logo.svg';
 import styles from './style.scss';
